@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "490588408437",
+    "project_id": "astrofire-38a8c",
+    "storage_bucket": "astrofire-38a8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:490588408437:android:c2a68f4902092ec3e5c63c",
+        "android_client_info": {
+          "package_name": "com.ashafio.astrofire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "490588408437-60dvk3ptgvsej236lt85tmch3madmun7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ashafio.astrofire",
+            "certificate_hash": "2988764d54706408535b398c3041a65bc6de857b"
+          }
+        },
+        {
+          "client_id": "490588408437-2bvt4tq3qopbna14846uptqn9kk3v2p4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZazLzCzXbLOJC5vypMopyt2qw_0R5pGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "490588408437-2bvt4tq3qopbna14846uptqn9kk3v2p4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
