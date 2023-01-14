@@ -196,7 +196,7 @@ void signIN(String email, String password) async
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((uid) =>
       {
         Fluttertoast.showToast(msg: "Login Successful"),
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()))
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => homeScreen()))
 
       }).catchError((e){
         Fluttertoast.showToast(msg: e);

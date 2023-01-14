@@ -1,87 +1,294 @@
-import 'package:astrofire/model/user_model.dart';
-import 'package:astrofire/screens/login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+import 'package:astrofire/screens/login.dart';
+import 'package:lottie/lottie.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class homeScreen extends StatefulWidget {
+  const homeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<homeScreen> createState() => _homeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
-  User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInUser = UserModel();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    FirebaseFirestore.instance.collection("users").doc(user!.uid).get().then((value){
-      this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {
-
-      });
-    });
-  }
-
+class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Welcome"),
-        //centerTitle: true,
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        //children: [
+/*
+          Container(
+            width: w,
+            height: 100,
+            child:         ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                width: double.infinity,
+                height: 100,
+                color: Colors.black,
+
+              ),
+            ),
       ),
-      body: Center(
-        child: Padding(
-            padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget> [
-              SizedBox(
-                height: 350,
-                child: Image.asset("assets/logo.png",fit: BoxFit.contain),
-                
-              ),
-              Text("Welcome Back!!!", style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-              SizedBox(
-                height: 10,
-              ),
-              Text("${loggedInUser.firstname} ${loggedInUser.lastname}",
-                style: TextStyle(
-                  color:Colors.black54,
-                  fontWeight: FontWeight.w500
-              )),
-                Text("${loggedInUser.email}",
-                    style: TextStyle(
-                        color:Colors.black54,
-                        fontWeight: FontWeight.w500
-                    )),
+*/
+          child: Padding(
+          padding: const EdgeInsets.all(30.0),
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 20),
+        children: [
 
-              SizedBox(height: 15,),
+          InkWell(
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/post.json'),
+                    ),
+                  ),
+                  Text("Feed",style: TextStyle(color: Colors.black,fontSize: 22),)
+                ],),
+            ),
+            onTap: (){
 
-              ActionChip(label: Text("Logout"),onPressed: (){
-                logout(context);
-              })
-
-            ],
+            },
           ),
-        ),
+
+          InkWell(
+            child: Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.account_circle_rounded,size: 50,color: Colors.white),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/profile.json'),
+                    ),
+                  ),
+                  Text("Profile",style: TextStyle(color: Colors.black,fontSize: 22),)
+                ],),
+            ),
+            onTap: (){
+
+            },
+          ),
+
+          InkWell(
+            child:   Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.,size: 50,color: Colors.white),
+                  SizedBox(
+                    height: 130,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/telescope.json'),
+                    ),
+                  ),
+                  /*InkWell(
+                onTap: (){},
+                child: Image.asset('assets/tele.png',height: 50,width: 50,),
+              ),*/
+                  Text("Explore AR",style: TextStyle(color: Colors.black,fontSize: 22),)
+                ],),
+            ),
+            onTap: (){
+
+            },
+          ),
+
+          InkWell(
+            child:  Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  //Lottie.asset('assets/elearn.json'),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/elearn.json'),
+                    ),
+                  ),
+                  Text("Courses",style: TextStyle(color: Colors.black,fontSize: 22,),),
+                ],),
+            ),
+            onTap: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            },
+          ),
+
+          InkWell(
+            child:  Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  //Lottie.asset('assets/elearn.json'),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/photojson.json'),
+                    ),
+                  ),
+                  Text("Photo of the day",style: TextStyle(color: Colors.black,fontSize: 20,),),
+                ],),
+            ),
+            onTap: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            },
+          ),
+
+          InkWell(
+            child:  Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  //Lottie.asset('assets/elearn.json'),
+                  SizedBox(
+                    height: 130,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/askqna.json'),
+                    ),
+                  ),
+                  Text("Ask a Question",style: TextStyle(color: Colors.black,fontSize: 20,),),
+                ],),
+            ),
+            onTap: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            },
+          ),
+
+          InkWell(
+            child:  Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  //Lottie.asset('assets/elearn.json'),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/blogs.json'),
+                    ),
+                  ),
+                  Text("Blogs",style: TextStyle(color: Colors.black,fontSize: 22,),),
+                ],),
+            ),
+            onTap: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            },
+          ),
+
+          InkWell(
+            child:  Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: Colors.black12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //Icon(Icons.home,size: 50,color: Colors.white),
+                  //Lottie.asset('assets/elearn.json'),
+                  SizedBox(
+                    height: 120,
+                    child: OverflowBox(
+                      minHeight: 170,
+                      maxHeight: 170,
+                      child: Lottie.asset('assets/events.json'),
+                    ),
+                  ),
+                  Text("Recent Events",style: TextStyle(color: Colors.black,fontSize: 20,),),
+                ],),
+            ),
+            onTap: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+            },
+          ),
+
+
+
+
+        ],
       ),
-    );
-  }
+    ),
+    ),
 
-  Future<void> logout(BuildContext context) async
-  {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+      );
   }
-
 }
+
+class MyClipper extends CustomClipper<Path> {
+@override
+  Path getClip(Size size){
+  return Path()
+      ..lineTo(0, size.height)
+      ..quadraticBezierTo(size.width/4, size.height-40, size.width/2, size.height-20,)
+      ..quadraticBezierTo(3/4 * size.width, size.height, size.width, size.height-30)
+      ..lineTo(size.width, 0);
+}
+@override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper){
+  return false;
+}
+}
+
+
+/*
+
+ClipPath(
+clipper: MyClipper(),
+child: Container(
+width: double.infinity,
+height: 100,
+color: Colors.black,
+
+
+),
+),
+
+class MyClipper extends CustomClipper<Path> {
+@override
+  Path getClip(Size size){
+  return Path()
+      ..lineTo(0, size.height)
+      ..quadraticBezierTo(size.width/4, size.height-40, size.width/2, size.height-20,)
+      ..quadraticBezierTo(3/4 * size.width, size.height, size.width, size.height-30)
+      ..lineTo(size.width, 0);
+}
+@override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper){
+  return false;
+}
+}
+*/

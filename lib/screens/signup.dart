@@ -1,6 +1,8 @@
 //import 'dart:js';
 
 import 'package:astrofire/model/user_model.dart';
+import 'package:astrofire/screens/email_verify.dart';
+import 'package:astrofire/screens/everify.dart';
 import 'package:astrofire/screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -343,7 +345,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
     Fluttertoast.showToast(msg: "Account created successfully.");
 
-    Navigator.pushAndRemoveUntil(context as BuildContext, MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+    //Navigator.pushAndRemoveUntil(context as BuildContext, MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
+    Navigator.pushAndRemoveUntil(context as BuildContext, MaterialPageRoute(builder: (context) => emailVerify()), (route) => false);
 
   }
 

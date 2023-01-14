@@ -1,3 +1,4 @@
+import 'package:astrofire/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:astrofire/screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),
+      //home: homeScreen(),
     );
   }
 }
