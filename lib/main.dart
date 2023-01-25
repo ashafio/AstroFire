@@ -1,12 +1,15 @@
-import 'package:astrofire/screens/home.dart';
+import 'package:astrofire/inside_screen/explore_ar.dart';
 import 'package:flutter/material.dart';
 import 'package:astrofire/screens/login.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+
+
   runApp(const MyApp());
 }
 
@@ -22,8 +25,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
-      //home: homeScreen(),
+      home: const LoginScreen(),
+      //home: const xplorear(),
+      //home: (),
     );
   }
 }

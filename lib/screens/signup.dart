@@ -4,6 +4,7 @@ import 'package:astrofire/model/user_model.dart';
 import 'package:astrofire/screens/email_verify.dart';
 import 'package:astrofire/screens/everify.dart';
 import 'package:astrofire/screens/login.dart';
+import 'package:astrofire/screens/reset_password.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -294,7 +295,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     TextButton(
                       child: Text('Forgot Password?'),
                       onPressed: () {
-
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ResetPasswordScreen()));
                       },
                     ),
 

@@ -1,4 +1,8 @@
 
+import 'package:astrofire/inside_screen/courses.dart';
+import 'package:astrofire/inside_screen/profile.dart';
+import 'package:astrofire/inside_screen/explore_ar.dart';
+import 'package:astrofire/inside_screen/photo_of_the_day.dart';
 import 'package:astrofire/screens/login.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +89,7 @@ class _homeScreenState extends State<homeScreen> {
                 ],),
             ),
             onTap: (){
-
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
 
@@ -112,7 +116,7 @@ class _homeScreenState extends State<homeScreen> {
                 ],),
             ),
             onTap: (){
-
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => xplorear()));
             },
           ),
 
@@ -137,6 +141,7 @@ class _homeScreenState extends State<homeScreen> {
             ),
             onTap: (){
               //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+              //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => courseScreen()));
             },
           ),
 
@@ -160,7 +165,7 @@ class _homeScreenState extends State<homeScreen> {
                 ],),
             ),
             onTap: (){
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>potdScreen()));
             },
           ),
 
