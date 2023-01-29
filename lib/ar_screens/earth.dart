@@ -1,19 +1,28 @@
-import 'package:astrofire/ar_screens/earth.dart';
 import 'package:astrofire/screens/home.dart';
 import 'package:flutter/material.dart';
+import 'package:babylonjs_viewer/babylonjs_viewer.dart';
 
-class xplorear extends StatelessWidget {
+
+class earth_ar extends StatefulWidget {
+  const earth_ar({Key? key}) : super(key: key);
+
+  @override
+  State<earth_ar> createState() => _earth_arState();
+}
+
+class _earth_arState extends State<earth_ar> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           toolbarHeight: 100.0,
           leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => homeScreen()));
           },),
-          //title: Text(null),
-          title: Text("3D Objects",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+          title: Text('Earth'),
           backgroundColor: Colors.black, // appbar color.
           foregroundColor: Colors.white, // appbar text color.
           actions: [
@@ -40,58 +49,12 @@ class xplorear extends StatelessWidget {
             // add more IconButton
           ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextButton(
-                child: Text('Mercury'),
-                onPressed: () {
-                },
-              ),
-
-              TextButton(
-                child: Text('Venus'),
-                onPressed: () {
-                },
-              ),
-          TextButton(
-            child: Text('Earth'),
-            onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => earth_ar()));
-            },),
-    TextButton(
-    child: Text('Mars'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Jupiter'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Saturn'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Uranus'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Neptune'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Pluto'),
-    onPressed: () {
-    },),
-    TextButton(
-    child: Text('Sun'),
-    onPressed: () {
-    },
-    ), ],
-          ),
+        body: BabylonJSViewer(
+          src: 'assets/earth.glb',
         ),
       ),
     );
   }
+
 }
+

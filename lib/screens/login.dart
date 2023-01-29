@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:astrofire/inside_screen/profile.dart';
+import 'package:astrofire/screens/admin_dashboard.dart';
 import 'package:astrofire/screens/home.dart';
 import 'package:astrofire/screens/signup.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +42,14 @@ class _LoginScreenState extends State<LoginScreen> {
       //validator: (){},
       validator: (value)
       {
-       if(value!.isEmpty){
-         return ("Please Enter Your Email");
-       }
-       //regex expression for email validation
+        if(value!.isEmpty){
+          return ("Please Enter Your Email");
+        }
+        //regex expression for email validation
         if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value))
-          {
-            return ("Please Enter a Valid Email.");
-          }
+        {
+          return ("Please Enter a Valid Email.");
+        }
         return null;
       },
 
@@ -56,12 +59,12 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 25),
-        hintText: "email",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        )
+          prefixIcon: Icon(Icons.mail),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 25),
+          hintText: "email",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          )
       ),
     );
 
@@ -76,13 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
       validator: (value){
         RegExp regex = new RegExp(r'^.{6,}$');
         if(value!.isEmpty)
-          {
-            return ("Password is required for login");
-          }
+        {
+          return ("Password is required for login");
+        }
         if(!regex.hasMatch(value))
-          {
-            return ("Enter Minimum 6 characters)");
-          }
+        {
+          return ("Enter Minimum 6 characters)");
+        }
       },
 
 
@@ -107,8 +110,8 @@ class _LoginScreenState extends State<LoginScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.black,
       child: MaterialButton(onPressed: () {
-       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen())); //pushreplacement doesnot copy previous page icons
-      signIN(emailController.text, passwordController.text);
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen())); //pushreplacement doesnot copy previous page icons
+        signIn(emailController.text, passwordController.text);
       },
         padding: EdgeInsets.fromLTRB(20, 15, 20, 25),
         minWidth: MediaQuery.of(context).size.width,
@@ -134,51 +137,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
 
-                children: <Widget>[
+                  children: <Widget>[
 
 
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset("assets/astrologo.png",fit: BoxFit.contain,),
-                  ),
+                    SizedBox(
+                      height: 200,
+                      child: Image.asset("assets/astrologo.png",fit: BoxFit.contain,),
+                    ),
 
-                  Text("AstroNerds",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black,fontSize: 50,fontWeight: FontWeight.bold),),
+                    Text("AstroNerds",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black,fontSize: 50,fontWeight: FontWeight.bold),),
 
-                  SizedBox(height: 10,),
+                    SizedBox(height: 10,),
 
-                  Text("Explore the Universe",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black,fontSize: 30,fontWeight: FontWeight.w300,fontFamily: 'Cursive')),
+                    Text("Explore the Universe",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black,fontSize: 30,fontWeight: FontWeight.w300,fontFamily: 'Cursive')),
 
-                  SizedBox(height: 45,),
+                    SizedBox(height: 45,),
 
-                  emailField,
-                  SizedBox(height: 25,),
+                    emailField,
+                    SizedBox(height: 25,),
 
-                  passwordField,
-                  SizedBox(height: 35,),
+                    passwordField,
+                    SizedBox(height: 35,),
 
-                  loginButton,
-                  SizedBox(height: 25,),
+                    loginButton,
+                    SizedBox(height: 25,),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
 
-                   children: <Widget>[
-                     Text("Don't have an account? "),
-                     GestureDetector(
-                       onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
-                       },
-                       child: Text(" Sign up",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.blue),),
-                     )
-                   ],
-                  )
+                      children: <Widget>[
+                        Text("Don't have an account? "),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
+                          },
+                          child: Text(" Sign up",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.blue),),
+                        )
+                      ],
+                    )
 
-                ],
-              ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -188,10 +191,71 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
+
+
+
+  //route
+  void route() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('role') == "admin") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  adminScreen(),
+            ),
+          );
+        }else{
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  homeScreen(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
+
+
+
+
+
+  // login
+  void signIn(String email, String password) async {
+    if (formkey.currentState!.validate()) {
+      try {
+        UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        route();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      }
+    }
+  }
+
+
+
+
   //login function
-void signIN(String email, String password) async
-{
-  if(formkey.currentState!.validate())
+  /*
+  void signIN(String email, String password) async
+  {
+    if(formkey.currentState!.validate())
     {
       await _auth.signInWithEmailAndPassword(email: email, password: password).then((uid) =>
       {
@@ -203,7 +267,7 @@ void signIN(String email, String password) async
       });
     }
   }
+  */
 }
-
 
 
